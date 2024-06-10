@@ -1,7 +1,13 @@
 <h1>MY TASKS</h1>
 <ul>
   <% @tasks.each do |task| %>
-    <li><%= link_to task.title, task_path(task) %></li>
+    <li style="display: flex; align-items: center;">
+      <%= form_with(model: task, local: true, url: task_path(task), method: :patch) do |f| %>
+        <%= f.check_box :completed %>
+        <%= f.submit "Update", style: "display: none;" %> <!-- Caché le bouton de soumission -->
+      <% end %>
+      <%= link_to task.title, task_path(task), style: "margin-left: 10px;" %>
+    </li>
   <% end %>
 </ul>
 <%= link_to "Create a new task", new_task_path %>
